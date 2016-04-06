@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="Tambah Barang" Language="C#" MasterPageFile="~/Lab.master" AutoEventWireup="true" CodeFile="GudangTambahBarang.aspx.cs" Inherits="GudangTambahBarang" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+    <style>
+        .entry:not(:first-of-type) {
+            margin-top: 10px;
+        }
+
+        .glyphicon {
+            font-size: 12px;
+        }
+
+        td {
+            padding: 2px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyContent" runat="Server">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -26,7 +39,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form id="demo-form" data-parsley-validate="" class="form-horizontal form-label-left" method="post" >
+                <form id="myForm" class="form-horizontal form-label-left">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kode-barang">
                             Kode Barang<span class="required">*</span>
@@ -44,32 +57,26 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="nama-lain" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Lain</label>
+                        <label for="nama-lain" class="control-label col-md-3 col-sm-3 col-xs-12">Spesifikasi</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="nama-lain" class="form-control col-md-7 col-xs-12" type="text" name="nama-lain">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="jenis-barang" class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Barang<span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select id="jenis-barang" name="jenis-barang" class="form-control" required>
-                                <option value="">Pilih salah satu...</option>
-                                <option value="1">Solid</option>
-                                <option value="2">Gas</option>
-                                <option value="3">Liquid</option>
-                            </select>
+                            <input id="spesifikasi" class="form-control col-md-7 col-xs-12" type="text" name="spesifikasi">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="satuan-barang" class="control-label col-md-3 col-sm-3 col-xs-12">Satuan Barang<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select id="satuan-barang" name="satuan-barang" class="form-control" required>
-                                <option value="">Pilih salah satu...</option>
-                                <option value="1">Buah</option>
-                                <option value="2">Berat (mg)</option>
-                                <option value="3">Volume (ml)</option>
-                                <option value="4">Panjang (cm)</option>
-                            </select>
+                            <asp:Repeater runat="server" ID="lstSatuan">
+                                <HeaderTemplate>
+                                    <select id="satuan-barang" name="satuan-barang" class="form-control" required>
+                                    <option value="">Pilih salah satu...</option>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <option value="<%# DataBinder.Eval(Container.DataItem, "ID") %>"><%# DataBinder.Eval(Container.DataItem, "SATUAN") %></option>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    </select>
+                                </FooterTemplate>
+                            </asp:Repeater>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,17 +88,159 @@
                     
                     <div class="ln_solid"></div>
                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Kemasan</label>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="form-control jumlah" name="jumlah[]" type="number" step="0.001" placeholder="Jumlah" required="required"/></td>
+                                        <td nowrap><label name="unit[]" class="unit">Label</label> dalam setiap </td>
+                                        <td>
+                                            <asp:Repeater runat="server" ID="listKemasan">
+                                                <HeaderTemplate>
+                                                    <select name="kemasan[]" class="form-control kemasan" required="required">
+                                                        <option value="">Pilih salah satu kemasan...</option>
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <option value="<%# DataBinder.Eval(Container.DataItem, "ID") %>"><%# DataBinder.Eval(Container.DataItem, "KEMASAN") %></option>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    </select>
+                                                </FooterTemplate>
+                                            </asp:Repeater>
+                                        </td>
+                                        <td><button class="btn btn-success btn-add" type="button"><i class="glyphicon glyphicon-plus gs"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <a href="GudangMasterBarang.aspx" class="btn btn-danger">Batal</a>
-                            <button type="submit" class="btn btn-success">Tambahkan Data Barang</button>
+                            <button id="myButton" class="btn btn-success">Tambahkan Data Barang</button>
                         </div>
                     </div>
                 </form>
-                <form id="demo-form2" data-parsley-validate></form>
             </div>
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BodyFooterContainer" runat="Server">
+    <script>
+
+        $('#satuan-barang').change(function () {
+            if ($("#satuan-barang").val() == '') {
+                return;
+            }
+
+            var satuanTerkecil = $("#satuan-barang option:selected").text();
+
+            $('.unit').each(function (i, obj) {
+                $('.unit')[i].textContent = satuanTerkecil;
+            });
+        });
+
+        //*
+        $("#myButton").on("click", function (e) {
+            if (e.handleObj.handler.caller.arguments[0] == e)
+                return;
+
+            var $myForm = $('#myForm')
+            if (!$myForm[0].checkValidity()) {
+                $myForm.find(':submit').click();
+                return;
+            }
+
+            e.preventDefault();
+            var aData = [];
+            var kode = $("#kode-barang").val();
+            var nama = $("#nama-barang").val();
+            var spesifikasi = $("#spesifikasi").val();
+            var satuan = $("#satuan-barang").val();
+            var keterangan = $("#keterangan").val();
+
+            var kemasan = '';
+            $('.unit').each(function (i, obj) {
+                if (kemasan == '') {
+                    kemasan = $('.kemasan')[i].value + '/' + $('.jumlah')[i].value;
+                }
+                else {
+                    kemasan = kemasan + '*' + $('.kemasan')[i].value + '/' + $('.jumlah')[i].value;
+                }
+            });
+
+            var jsonData = JSON.stringify({ kode: kode, nama: nama, spesifikasi: spesifikasi, satuan: satuan, keterangan: keterangan, kemasan: kemasan });
+            $.ajax({
+                type: "POST",  
+                url: "GudangTambahBarang.aspx/TambahBarang",
+                data: jsonData,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json", // dataType is json format
+                success: OnSuccess,
+                error: OnErrorCall
+            });
+
+            function OnSuccess(response) {
+                if (response.d.Status == true) {
+                    new PNotify({
+                        title: 'Transaksi Barang Masuk Berhasil',
+                        text: 'Data sudah berhasil ditambahkan',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                    });
+                    $("#barang").val('').trigger('change');
+                    $("#vendor").val('').trigger('change');
+                    $('#myForm').trigger("reset");
+                }
+                else
+                {
+                    new PNotify({
+                        title: 'Transaksi Barang Masuk Gagal',
+                        text: response.d.ErrorMessage,
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                }
+            }
+            function OnErrorCall(response) {
+                new PNotify({
+                    title: 'Gagal Mengirim Data',
+                    text: response.statusText + ' (' + response.status + ') : ' + response.responseJSON.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+        });
+        //*
+
+        $(function () {
+            $(document).on('click', '.btn-add', function (e) {
+                var $myForm = $('#myForm')
+                if (!$myForm[0].checkValidity()) {
+                    $myForm.find(':submit').click();
+                    return;
+                }
+
+                e.preventDefault();
+
+                var controlForm = $(this).closest('table'),
+                    currentEntry = $(this).parents('tr:first'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                newEntry.find('input').val('');
+                controlForm.find('tr:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="glyphicon glyphicon-minus gs"></span>');
+            }).on('click', '.btn-remove', function (e) {
+                $(this).parents('tr:first').remove();
+
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
 </asp:Content>
 

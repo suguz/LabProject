@@ -70,7 +70,7 @@ public partial class GudangBarangMasuk : System.Web.UI.Page
             if (dt.Rows.Count > 0)
             {
                 result.Status = true;
-                result.Value = (dt.Rows[0]["SIMBOL_SATUAN"] == DBNull.Value) ? string.Empty : dt.Rows[0]["SIMBOL_SATUAN"].ToString();
+                result.Value = (dt.Rows[0]["SATUAN"] == DBNull.Value) ? string.Empty : dt.Rows[0]["SATUAN"].ToString();
             }
             else
             {

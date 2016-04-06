@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Data Barang" Language="C#" MasterPageFile="~/Lab.master" AutoEventWireup="true" CodeFile="GudangMasterBarang.aspx.cs" Inherits="GudangMasterBarang" %>
+﻿<%@ Page Title="Satuan Terkecil" Language="C#" MasterPageFile="~/Lab.master" AutoEventWireup="true" CodeFile="MasterSatuanTerkecil.aspx.cs" Inherits="MasterUnitTerkecil" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Daftar Barang</h2>
+                <h2>Daftar Satuan Terkecil</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -32,11 +32,7 @@
                             <thead>
                                 <tr class="headings">
                                     <th class="column-title">ID</th>
-                                    <th class="column-title">Kode Barang</th>
-                                    <th class="column-title">Nama Barang</th>
-                                    <th class="column-title">Spesifikasi</th>
-                                    <th class="column-title">Satuan</th>
-                                    <th class="column-title">Keterangan</th>
+                                    <th class="column-title">Satuan Terkecil</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,19 +40,45 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# DataBinder.Eval(Container.DataItem, "ID") %></td>
-                            <td><%# DataBinder.Eval(Container.DataItem, "KODE_BARANG") %></td>
-                            <td><%# DataBinder.Eval(Container.DataItem, "NAMA_BARANG") %></td>
-                            <td><%# DataBinder.Eval(Container.DataItem, "SPESIFIKASI") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem, "SATUAN") %></td>
-                            <td><%# DataBinder.Eval(Container.DataItem, "KETERANGAN") %></td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
                         </tbody>
                         </table>
                     </FooterTemplate>
-                </asp:Repeater>
-                <a class="btn btn-success submit" href="GudangTambahBarang.aspx">Tambah Data Barang</a>
+                </asp:Repeater>                
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tambah Satuan Barang</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form method="post" runat="server">
+                    <div class="input-group">
+                    <input runat="server" type="text" id="satuan" required="required" class="form-control" placeholder="Ketik satuan baru" />
+                    <span class="input-group-btn">
+                        <asp:Button runat="server" ID="btnAdd" OnClick="btnAdd_Click" CssClass="btn btn-success" Text="Tambah Satuan" />
+                    </span>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
