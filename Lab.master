@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!-- Bootstrap -->
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -26,8 +27,13 @@
     <!-- starrr -->
     <link href="vendors/starrr/dist/starrr.css" rel="stylesheet">
 
+    <!-- PNotify -->
+    <link href="vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="build/css/custom.min.css" rel="stylesheet">
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -178,8 +184,13 @@
     <!-- starrr -->
     <script src="vendors/starrr/dist/starrr.js"></script>
 
+    <!-- PNotify -->
+    <script src="vendors/pnotify/dist/pnotify.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="build/js/custom.min.js"></script>
 
     <!-- bootstrap-daterangepicker -->
     <script>
@@ -264,9 +275,14 @@
     <!-- Select2 -->
     <script>
         $(document).ready(function () {
-            $(".select2_single").select2({
-                placeholder: "Select a state",
-                allowClear: true
+            $(".select2_barang").select2({
+                placeholder: "Pilih nama barang"
+            });
+            $(".select2_vendor").select2({
+                placeholder: "Pilih nama vendor"
+            });
+            $(".select2_lab").select2({
+                placeholder: "Pilih nama laboratorium"
             });
             $(".select2_group").select2({});
             $(".select2_multiple").select2({

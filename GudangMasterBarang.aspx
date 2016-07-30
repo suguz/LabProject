@@ -32,9 +32,6 @@
                                 <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                         <tr class="headings">
-                                            <th>
-                                                <input type="checkbox" id="check-all" class="flat">
-                                            </th>
                                             <th class="column-title">ID</th>
                                             <th class="column-title">Kode Barang</th>
                                             <th class="column-title">Nama Barang</th>
@@ -43,20 +40,12 @@
                                             <th class="column-title">Grup Satuan</th>
                                             <th class="column-title">Simbol Satuan</th>
                                             <th class="column-title">Keterangan</th>
-                                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                                            </th>
-                                            <th class="bulk-actions" colspan="7">
-                                                <a class="antoo" style="color: #fff; font-weight: 500;">Bulk Actions ( <span class="action-cnt"></span>) <i class="fa fa-chevron-down"></i></a>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                             </HeaderTemplate>
                             <ItemTemplate>
                                         <tr class="even pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "ID") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "KODE_BARANG") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "NAMA_BARANG") %></td>
@@ -65,15 +54,10 @@
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "GRUP_SATUAN") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "SIMBOL_SATUAN") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "KETERANGAN") %></td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
                                         </tr>
                             </ItemTemplate>
                             <AlternatingItemTemplate>
                                         <tr class="odd pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "ID") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "KODE_BARANG") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "NAMA_BARANG") %></td>
@@ -82,8 +66,6 @@
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "GRUP_SATUAN") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "SIMBOL_SATUAN") %></td>
                                             <td class=" "><%# DataBinder.Eval(Container.DataItem, "KETERANGAN") %></td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
                                         </tr>
                             </AlternatingItemTemplate>
                             <FooterTemplate>
